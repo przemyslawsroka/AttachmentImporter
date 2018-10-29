@@ -8,13 +8,16 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class RestClient {
+/*
+Technical client that is used to fetch data from REST endpoint protected by HTTP basic authentication.
+ */
+class RestClient {
 
     private final String baseUrl;
     private final String username;
     private final String password;
 
-    public RestClient(String baseUrl, String username, String password) {
+    RestClient(String baseUrl, String username, String password) {
         this.baseUrl = baseUrl;
         this.username = username;
         this.password = password;
