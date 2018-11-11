@@ -1,5 +1,7 @@
-package com.kreditech.mambu.importer;
+package com.kreditech.mambu.importer.service;
 
+import com.kreditech.mambu.importer.rest.RestClient;
+import com.kreditech.mambu.importer.model.MambuAttachment;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.json.*;
@@ -7,15 +9,18 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-class MambuClient {
+/**
+ * Fetching mambu attachments for client and loan
+ */
+public class MambuAttachmentService {
 
     private RestClient restClient;
 
-    MambuClient(String baseUrl, String username, String password) {
-        this.restClient = new RestClient(baseUrl, username, password);
+    public MambuAttachmentService(String mambuUrl, String username, String password) {
+        this.restClient = new RestClient(mambuUrl, username, password);
     }
 
-    String getClientKeyForLoan(String loanIdentifier) {
+    public String getClientKeyForLoan(String loanIdentifier) {
         String loanMetadata = restClient.getDataFromServer("api/loans/" + loanIdentifier);
         JsonReader jsonReader = Json.createReader(new StringReader(loanMetadata));
         JsonObject loanDetailsObject = jsonReader.readObject();
@@ -24,7 +29,7 @@ class MambuClient {
         return loanDetailsObject.getString("accountHolderKey");
     }
 
-    List<MambuAttachment> getDocumentsForClient(String clientKey) {
+    public List<MambuAttachment> getDocumentsForClient(String clientKey, int limitAttachmentsPerEntity) {
         String documentsMetadata = restClient.getDataFromServer("api/clients/" + clientKey + "/documents/");
 
         JsonReader jsonReader = Json.createReader(new StringReader(documentsMetadata));
@@ -49,17 +54,17 @@ class MambuClient {
             document.setClientKey(clientKey);
             documents.add(document);
 
-            if (documents.size() == 3)
+            if (documents.size() == limitAttachmentsPerEntity)
                 break;
         }
         return documents;
 
     }
 
-    /*
+    /**
     Get document binary content. Mambu stores documents on S3 and only metadata are stored in Database.
      */
-    byte[] getDocumentContent(int documentIdentifier) {
+    public byte[] getDocumentContent(int documentIdentifier) {
         String content = restClient.getDataFromServer("/api/documents/" + documentIdentifier);
         return Base64.decodeBase64(content.getBytes());
     }

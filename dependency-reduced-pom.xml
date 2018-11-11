@@ -38,7 +38,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>package.Main</mainClass>
+                  <mainClass>com.kreditech.mambu.importer.Main</mainClass>
                 </transformer>
               </transformers>
             </configuration>

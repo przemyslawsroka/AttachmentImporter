@@ -1,4 +1,4 @@
-package com.kreditech.mambu.importer;
+package com.kreditech.mambu.importer.model;
 
 /**
  * Object that represent metadata for single attachment from Mambu.

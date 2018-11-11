@@ -20,5 +20,5 @@ where
 * mambu-url - link to mambu instance
 * mambu-login - login of user that has API access to Mambu
 * mambu-password - password of user
-* base-directory - directory where files will be stored
-* loan-identifiers-file-name - list of loans for which documents should be downloanded
+* base-directory - base directory where file with loan identifiers is stored (e.g. "C:\\temp\data\")
+* loan-identifiers-file-name - list of loans for which documents should be downloaded (e.g. "loan_ids.txt")

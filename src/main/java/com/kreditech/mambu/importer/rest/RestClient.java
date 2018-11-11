@@ -1,4 +1,4 @@
-package com.kreditech.mambu.importer;
+package com.kreditech.mambu.importer.rest;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -11,19 +11,19 @@ import java.net.URLConnection;
 /*
 Technical client that is used to fetch data from REST endpoint protected by HTTP basic authentication.
  */
-class RestClient {
+public class RestClient {
 
     private final String baseUrl;
     private final String username;
     private final String password;
 
-    RestClient(String baseUrl, String username, String password) {
+    public RestClient(String baseUrl, String username, String password) {
         this.baseUrl = baseUrl;
         this.username = username;
         this.password = password;
     }
 
-    String getDataFromServer(String path) {
+    public String getDataFromServer(String path) {
         StringBuilder sb = new StringBuilder();
         try {
             URL url = new URL(baseUrl + path);
